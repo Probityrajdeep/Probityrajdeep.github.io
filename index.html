@@ -37,7 +37,7 @@
       <h2><span id="role"></span><i class="caret"></i></h2>
       <p class="lead">Focused on security operations, blue-team fundamentals, threat detection and vulnerability assessment. Practical CSOC exposure plus hands-on labs, and a curiosity for how attacks are detected and investigated.</p>
       <div class="actions">
-        <a class="btn pri" href="Rajdeep_Mishra_Cybersecurity_Resume.pdf" target="_blank" rel="noopener">View resume ↗</a>
+        <a class="btn pri" href="#contact">Contact me</a>
         <a class="btn" href="#projects">Explore projects</a>
         <a class="btn warn" href="#safe">Check my exposure</a>
       </div>
@@ -120,16 +120,34 @@
   </section>
 
   <section id="contact" class="sec wrap">
-    <div class="panel contact">
-      <h2 class="sh">Let's talk security.</h2>
-      <p>Open to cybersecurity internships and entry-level roles in SOC operations, security analysis, blue team and vulnerability assessment.</p>
-      <div class="actions">
-        <a class="btn pri" href="mailto:emailrajdeepmishra@gmail.com?subject=Cybersecurity%20Opportunity">Email me</a>
-        <a class="btn" href="https://www.linkedin.com/in/rajdeep2006/" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a class="btn" href="https://github.com/Probityrajdeep" target="_blank" rel="noopener">GitHub ↗</a>
-        <a class="btn" href="https://tryhackme.com/p/rajdeepmishra" target="_blank" rel="noopener">TryHackMe ↗</a>
+    <h2 class="sh">Let's talk security.</h2>
+    <p class="lead">Open to cybersecurity internships and entry-level roles in SOC operations, security analysis, blue team and vulnerability assessment. Send a message and I'll reply to the email you enter.</p>
+    <div class="cwrap">
+      <div>
+        <form id="cform" class="panel cform">
+          <fieldset class="topics"><legend>I'm reaching out as</legend>
+            <label><input type="radio" name="topic" value="Recruiter" checked><span>Recruiter</span></label>
+            <label><input type="radio" name="topic" value="Collaborator"><span>Collaborator</span></label>
+            <label><input type="radio" name="topic" value="Just curious"><span>Just curious</span></label>
+          </fieldset>
+          <div class="fld"><label for="cn">&gt; name</label><input id="cn" required maxlength="80" autocomplete="name" placeholder="Ada Lovelace"></div>
+          <div class="fld"><label for="ce">&gt; your email, so I can reply</label><input id="ce" type="email" required maxlength="120" autocomplete="email" placeholder="you@company.com"></div>
+          <div class="fld"><label for="cm">&gt; message</label><textarea id="cm" required minlength="10" maxlength="1000" rows="5" placeholder="Tell me about the role or idea…"></textarea><small id="ccount">0/1000</small></div>
+          <input class="hp" id="hp_field" name="hp_field" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn pri send" id="csend" type="submit"><span>Transmit message</span></button>
+          <p id="cstatus" class="cstatus" role="status" aria-live="polite"></p>
+        </form>
+        <div id="cdone" class="panel" hidden><pre id="clog"></pre><button class="btn" id="cagain" type="button">Send another</button></div>
       </div>
-      <p class="mail">emailrajdeepmishra@gmail.com <button class="copy" type="button">COPY</button></p>
+      <aside class="panel chan">
+        <div class="pipe"><span>YOU</span><i></i><span>ME</span></div>
+        <div class="row"><span>channel</span><b class="ok">HTTPS encrypted</b></div>
+        <div class="row"><span>my email</span><b>hidden</b></div>
+        <div class="row"><span>my phone</span><b>not published</b></div>
+        <div class="row"><span>spam filter</span><b class="ok">active</b></div>
+        <p class="note">I only use your details to reply. Messages are relayed to my inbox by Web3Forms.</p>
+        <div class="actions"><a class="btn" href="https://www.linkedin.com/in/rajdeep2006/" target="_blank" rel="noopener">LinkedIn ↗</a><a class="btn" href="https://github.com/Probityrajdeep" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="https://tryhackme.com/p/rajdeepmishra" target="_blank" rel="noopener">TryHackMe ↗</a></div>
+      </aside>
     </div>
   </section>
 </div>

@@ -1,3 +1,6 @@
+/* Contact form setup: paste your free Web3Forms access key here (get it at web3forms.com). It is designed to be public. */
+const FORM_KEY = "PASTE_YOUR_ACCESS_KEY_HERE";
+
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -75,13 +78,37 @@ document.addEventListener("DOMContentLoaded", () => {
     $$(".fb").forEach(x => x.classList.remove("on")); b.classList.add("on");
     $$(".pc").forEach(c => c.classList.toggle("hide", b.dataset.f !== "all" && c.dataset.c !== b.dataset.f));
   }));
-  $(".copy").addEventListener("click", async e => {
-    try { await navigator.clipboard.writeText("emailrajdeepmishra@gmail.com"); e.target.textContent = "COPIED"; } catch { e.target.textContent = "SELECT EMAIL"; }
-    setTimeout(() => e.target.textContent = "COPY", 1600);
-  });
   $("#year").textContent = new Date().getFullYear();
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("vis"); io.unobserve(e.target); } }), { threshold: .08 });
   $$(".panel,.strip,.sh").forEach(el => { el.classList.add("rv"); io.observe(el); });
+
+  /* Contact form: relayed by Web3Forms so no email address is ever on the page */
+  const cf = $("#cform");
+  if (cf) {
+    const wrap = $(".cwrap"), st = $("#cstatus"), btn = $("#csend"), cm = $("#cm"), done = $("#cdone"), t0 = Date.now();
+    const say = (t, c = "") => { st.textContent = t; st.className = "cstatus " + c; };
+    cm.addEventListener("input", () => { $("#ccount").textContent = cm.value.length + "/1000"; });
+    cf.addEventListener("submit", async e => {
+      e.preventDefault();
+      if ($("#hp_field").value || Date.now() - t0 < 4000) return say("Transmission failed. Wait a few seconds and try again.", "no");
+      let last = 0; try { last = +localStorage.getItem("cf_last") || 0; } catch {}
+      if (Date.now() - last < 60000) return say("Message already sent. Wait a minute before sending another.", "no");
+      if (FORM_KEY.startsWith("PASTE")) return say("Form not set up yet: add your Web3Forms access key at the top of script.js.", "no");
+      const name = $("#cn").value.trim(), email = $("#ce").value.trim(), topic = cf.elements.topic.value;
+      btn.disabled = true; wrap.classList.add("sending"); say("Encrypting and transmitting…", "ok");
+      try {
+        const r = await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ access_key: FORM_KEY, subject: `Portfolio message (${topic}) from ${name}`, from_name: "Portfolio contact form", name, email, topic, message: cm.value.trim() }) });
+        if (!(await r.json()).success) throw 0;
+        try { localStorage.setItem("cf_last", Date.now()); } catch {}
+        cf.hidden = true; done.hidden = false; done.classList.add("vis"); cf.reset(); $("#ccount").textContent = "0/1000"; say("");
+        const out = $("#clog"); out.textContent = "";
+        for (const l of ["> encrypting payload ........ [ OK ]", "> delivering to inbox ....... [ OK ]", "> TRANSMISSION RECEIVED", `> thanks ${name}, I'll reply to ${email}`]) { out.textContent += l + "\n"; if (!calm) await wait(380); }
+      } catch { say("Transmission failed. Check your connection and try again.", "no"); }
+      btn.disabled = false; wrap.classList.remove("sending");
+    });
+    $("#cagain").addEventListener("click", () => { done.hidden = true; cf.hidden = false; });
+  }
 
   /* Tab router: #safe shows the Am I Safe view, everything else shows the portfolio */
   let scanned = false;
