@@ -1,5 +1,5 @@
 /* Contact form setup: paste your free Web3Forms access key here (get it at web3forms.com). It is designed to be public. */
-const FORM_KEY = "PASTE_YOUR_ACCESS_KEY_HERE";
+const FORM_KEY = "65008f33-e161-468c-8feb-018101a5c4e5";
 
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
